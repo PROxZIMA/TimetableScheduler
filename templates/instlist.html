@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+
+
+<fieldset class="fieldset">
+    <a href="{% url 'addinstructor'%}"><h1 class="tablink" onclick="openPage('new')" id="defaultOpen">Add Instructor</h1></a>
+    <div class="tabcontent" id="edit">
+        <table class="table1">
+            <thead>
+            <tr class="table-headers">
+            <th>UID</th>
+            <th>Name</th>
+            <th  class="empty"></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for inst in instructors %}
+            <tr>
+             <td>{{inst.uid}}</td>
+             <td>{{inst.name}}</td>
+             <td class="empty">
+                <form action="{% url 'deleteinstructor' inst.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="X" class="cross">
+                </form>
+             </td>
+             </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+</fieldset>
+
+<div class="img">
+	<img src="{% static 'img/teacher.png' %}">
+</div>
+
+{% endblock %}

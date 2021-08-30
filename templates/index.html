@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% load static %}
+<div class="inner">
+  <div class="vec">
+    <div class="img">
+      <img src="{% static 'img/vect.jpg' %}">
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="txt">
+    <h2>Timetable Generator</h2>
+    <p>Let our Artificial Intelligence schedule your classes.
+      Add your university class details and generate Time Table.</p>
+  </div>
+  <div class="crdbtn">
+    <a href="{% url 'timetable' %}" class="btn">Generate Timetable</a>
+
+  </div>
+</div>
+{% endblock %}
