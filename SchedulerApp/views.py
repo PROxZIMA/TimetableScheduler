@@ -36,6 +36,44 @@ class Data:
         return self._meetingTimes
 
 
+class Class:
+    def __init__(self, id, dept, section, course):
+        self.section_id = id
+        self.department = dept
+        self.course = course
+        self.instructor = None
+        self.meeting_time = None
+        self.room = None
+        self.section = section
+
+    def get_id(self):
+        return self.section_id
+
+    def get_dept(self):
+        return self.department
+
+    def get_course(self):
+        return self.course
+
+    def get_instructor(self):
+        return self.instructor
+
+    def get_meetingTime(self):
+        return self.meeting_time
+
+    def get_room(self):
+        return self.room
+
+    def set_instructor(self, instructor):
+        self.instructor = instructor
+
+    def set_meetingTime(self, meetingTime):
+        self.meeting_time = meetingTime
+
+    def set_room(self, room):
+        self.room = room
+
+
 class Schedule:
     def __init__(self):
         self._data = data
@@ -179,44 +217,6 @@ class GeneticAlgorithm:
         return tournament_pop
 
 
-class Class:
-    def __init__(self, id, dept, section, course):
-        self.section_id = id
-        self.department = dept
-        self.course = course
-        self.instructor = None
-        self.meeting_time = None
-        self.room = None
-        self.section = section
-
-    def get_id(self):
-        return self.section_id
-
-    def get_dept(self):
-        return self.department
-
-    def get_course(self):
-        return self.course
-
-    def get_instructor(self):
-        return self.instructor
-
-    def get_meetingTime(self):
-        return self.meeting_time
-
-    def get_room(self):
-        return self.room
-
-    def set_instructor(self, instructor):
-        self.instructor = instructor
-
-    def set_meetingTime(self, meetingTime):
-        self.meeting_time = meetingTime
-
-    def set_room(self, room):
-        self.room = room
-
-
 data = Data()
 
 
@@ -237,10 +237,6 @@ def context_manager(schedule):
         ]
         context.append(cls)
     return context
-
-
-def home(request):
-    return render(request, 'index.html', {})
 
 
 def timetable(request):
@@ -267,75 +263,96 @@ def timetable(request):
         })
 
 
-def add_instructor(request):
+'''
+Page Views
+'''
+
+
+def home(request):
+    return render(request, 'index.html', {})
+
+
+def instructorAdd(request):
     form = InstructorForm(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
             form.save()
-            return redirect('addinstructor')
+            return redirect('instructorAdd')
     context = {'form': form}
-    return render(request, 'adins.html', context)
+    return render(request, 'instructorAdd.html', context)
 
 
-def inst_list_view(request):
+def instructorEdit(request):
     context = {'instructors': Instructor.objects.all()}
-    return render(request, 'instlist.html', context)
+    return render(request, 'instructorEdit.html', context)
 
 
-def delete_instructor(request, pk):
+def instructorDelete(request, pk):
     inst = Instructor.objects.filter(pk=pk)
     if request.method == 'POST':
         inst.delete()
-        return redirect('editinstructor')
+        return redirect('instructorEdit')
 
 
-def add_room(request):
+def roomAdd(request):
     form = RoomForm(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
             form.save()
-            return redirect('addroom')
+            return redirect('roomAdd')
     context = {'form': form}
-    return render(request, 'addrm.html', context)
+    return render(request, 'roomAdd.html', context)
 
 
-def room_list(request):
+def roomEdit(request):
     context = {'rooms': Room.objects.all()}
-    return render(request, 'rmlist.html', context)
+    return render(request, 'roomEdit.html', context)
 
 
-def delete_room(request, pk):
+def roomDelete(request, pk):
     rm = Room.objects.filter(pk=pk)
     if request.method == 'POST':
         rm.delete()
-        return redirect('editrooms')
+        return redirect('roomEdit')
 
 
-def meeting_list_view(request):
-    context = {'meeting_times': MeetingTime.objects.all()}
-    return render(request, 'mtlist.html', context)
-
-
-def add_meeting_time(request):
+def meetingTimeAdd(request):
     form = MeetingTimeForm(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
             form.save()
-            return redirect('addmeetingtime')
+            return redirect('meetingTimeAdd')
         else:
             print('Invalid')
     context = {'form': form}
-    return render(request, 'addmt.html', context)
+    return render(request, 'meetingTimeAdd.html', context)
 
 
-def delete_meeting_time(request, pk):
+def meetingTimeEdit(request):
+    context = {'meeting_times': MeetingTime.objects.all()}
+    return render(request, 'meetingTimeEdit.html', context)
+
+
+def meetingTimeDelete(request, pk):
     mt = MeetingTime.objects.filter(pk=pk)
     if request.method == 'POST':
         mt.delete()
-        return redirect('editmeetingtime')
+        return redirect('meetingTimeEdit')
 
 
-def course_list_view(request):
+def courseAdd(request):
+    form = CourseForm(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('courseAdd')
+        else:
+            print('Invalid')
+    context = {'form': form}
+    return render(request, 'courseAdd.html', context)
+
+
+def courseEdit(request):
     instructor = defaultdict(list)
     for course in Course.instructors.through.objects.all():
         course_number = course.course_id
@@ -344,39 +361,27 @@ def course_list_view(request):
         instructor[course_number].append(instructor_name)
 
     context = {'courses': Course.objects.all(), 'instructor': instructor}
-    return render(request, 'crslist.html', context)
+    return render(request, 'courseEdit.html', context)
 
 
-def add_course(request):
-    form = CourseForm(request.POST or None)
-    if request.method == 'POST':
-        if form.is_valid():
-            form.save()
-            return redirect('addcourse')
-        else:
-            print('Invalid')
-    context = {'form': form}
-    return render(request, 'adcrs.html', context)
-
-
-def delete_course(request, pk):
+def courseDelete(request, pk):
     crs = Course.objects.filter(pk=pk)
     if request.method == 'POST':
         crs.delete()
-        return redirect('editcourse')
+        return redirect('courseEdit')
 
 
-def add_department(request):
+def departmentAdd(request):
     form = DepartmentForm(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
             form.save()
-            return redirect('adddepartment')
+            return redirect('departmentAdd')
     context = {'form': form}
-    return render(request, 'addep.html', context)
+    return render(request, 'departmentAdd.html', context)
 
 
-def department_list(request):
+def departmentEdit(request):
     course = defaultdict(list)
     for dept in Department.courses.through.objects.all():
         dept_name = Department.objects.filter(
@@ -387,33 +392,33 @@ def department_list(request):
         course[dept_name].append(course_name)
 
     context = {'departments': Department.objects.all(), 'course': course}
-    return render(request, 'deptlist.html', context)
+    return render(request, 'departmentEdit.html', context)
 
 
-def delete_department(request, pk):
+def departmentDelete(request, pk):
     dept = Department.objects.filter(pk=pk)
     if request.method == 'POST':
         dept.delete()
-        return redirect('editdepartment')
+        return redirect('departmentEdit')
 
 
-def add_section(request):
+def sectionAdd(request):
     form = SectionForm(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
             form.save()
-            return redirect('addsection')
+            return redirect('sectionAdd')
     context = {'form': form}
-    return render(request, 'addsec.html', context)
+    return render(request, 'sectionAdd.html', context)
 
 
-def section_list(request):
+def sectionEdit(request):
     context = {'sections': Section.objects.all()}
-    return render(request, 'seclist.html', context)
+    return render(request, 'sectionEdit.html', context)
 
 
-def delete_section(request, pk):
+def sectionDelete(request, pk):
     sec = Section.objects.filter(pk=pk)
     if request.method == 'POST':
         sec.delete()
-        return redirect('editsection')
+        return redirect('sectionEdit')

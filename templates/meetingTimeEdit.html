@@ -5,26 +5,28 @@
 
 
 <fieldset class="fieldset">
-  <a href="{% url 'addinstructor'%}">
-    <h1 class="tablink" onclick="openPage('new')" id="defaultOpen">Add Instructor</h1>
+  <a href="{% url 'meetingTimeAdd'%}">
+    <h1 class="tablink" onclick="openPage('new')" id="defaultOpen">Add Meeting time</h1>
   </a>
   <div class="tabcontent" id="edit">
     <table class="table1">
       <thead>
         <tr class="table-headers">
-          <th>UID</th>
-          <th>Name</th>
+          <th>PID</th>
+          <th>Day</th>
+          <th>Timing</th>
           <th class="empty"></th>
         </tr>
       </thead>
 
       <tbody>
-        {% for inst in instructors %}
+        {% for mt in meeting_times %}
         <tr>
-          <td>{{inst.uid}}</td>
-          <td>{{inst.name}}</td>
+          <td>{{mt.pid}}</td>
+          <td>{{mt.day}}</td>
+          <td>{{mt.time}}</td>
           <td class="empty">
-            <form action="{% url 'deleteinstructor' inst.id %}" method="post">
+            <form action="{% url 'deletemeetingtime' mt.pid %}" method="post">
               {% csrf_token %}
               <input type="submit" value="X" class="cross">
             </form>
@@ -38,7 +40,7 @@
 </fieldset>
 
 <div class="img">
-  <img src="{% static 'img/teacher.png' %}">
+  <img src="{% static 'img/img_clk.png' %}">
 </div>
 
 {% endblock %}

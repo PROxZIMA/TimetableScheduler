@@ -1,12 +1,10 @@
-import math
-import random as rnd
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save, post_delete
-from datetime import timedelta, date
 
-time_slots = (
+
+TIME_SLOTS = (
     ('9:30 - 10:30', '9:30 - 10:30'),
     ('10:30 - 11:30', '10:30 - 11:30'),
     ('11:30 - 12:30', '11:30 - 12:30'),
@@ -15,6 +13,7 @@ time_slots = (
     ('3:30 - 4:30', '3:30 - 4:30'),
     ('4:30 - 5:30', '4:30 - 5:30'),
 )
+
 DAYS_OF_WEEK = (
     ('Monday', 'Monday'),
     ('Tuesday', 'Tuesday'),
@@ -23,11 +22,6 @@ DAYS_OF_WEEK = (
     ('Friday', 'Friday'),
     ('Saturday', 'Saturday'),
 )
-
-POPULATION_SIZE = 9
-NUMB_OF_ELITE_SCHEDULES = 1
-TOURNAMENT_SELECTION_SIZE = 3
-MUTATION_RATE = 0.1
 
 
 class Room(models.Model):
@@ -49,7 +43,7 @@ class Instructor(models.Model):
 class MeetingTime(models.Model):
     pid = models.CharField(max_length=4, primary_key=True)
     time = models.CharField(max_length=50,
-                            choices=time_slots,
+                            choices=TIME_SLOTS,
                             default='11:30 - 12:30')
     day = models.CharField(max_length=15, choices=DAYS_OF_WEEK)
 

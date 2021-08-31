@@ -6,7 +6,7 @@
   {% csrf_token %}
   <fieldset>
     <h1 class="tablink" onclick="openPage('new')" id="defaultOpen">Add Course</h1>
-    <a href="{% url 'editcourse' %}">
+    <a href="{% url 'courseEdit' %}">
       <h1 class="tablink" onclick="openPage('edit')" id="link_to_edit">Edit Courses</h1>
     </a>
     <div class="tabcontent" id="new">

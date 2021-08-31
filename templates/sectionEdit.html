@@ -5,26 +5,28 @@
 
 
 <fieldset class="fieldset">
-  <a href="{% url 'adddepartment'%}">
-    <h1 class="tablink" onclick="openPage('new')" id="defaultOpen">Add Department</h1>
+  <a href="{% url 'sectionAdd'%}">
+    <h1 class="tablink" onclick="openPage('new')" id="defaultOpen">Add Section</h1>
   </a>
   <div class="tabcontent" id="edit">
     <table class="table1">
       <thead>
         <tr class="table-headers">
+          <th>Section Id</th>
           <th>Department</th>
-          <th>Courses</th>
+          <th>Total Classes</th>
           <th class="empty"></th>
         </tr>
       </thead>
 
       <tbody>
-        {% for dept in departments %}
+        {% for sec in sections %}
         <tr>
-          <td>{{dept.dept_name}}</td>
-          <td>{{course|dictKey:dept.dept_name}}</td>
+          <td>{{sec.section_id}}</td>
+          <td>{{sec.department}}</td>
+          <td>{{sec.num_class_in_week }}</td>
           <td class="empty">
-            <form action="{% url 'deletedepartment' dept.id %}" method="post">
+            <form action="{% url 'deletesection' sec.section_id %}" method="post">
               {% csrf_token %}
               <input type="submit" value="X" class="cross">
             </form>
