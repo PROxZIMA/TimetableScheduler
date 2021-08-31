@@ -5,42 +5,44 @@
 
 
 <fieldset class="fieldset">
-    <a href="{% url 'addroom'%}"><h1 class="tablink" onclick="openPage('new')" id="defaultOpen">Add Room</h1></a>
-    <div class="tabcontent" id="edit">
-        <table class="table1">
-            <thead>
-            <tr class="table-headers">
-            <th>Room No.</th>
-            <th>Seating Capacity</th>
-            <th  class="empty"></th>
-            </tr>
-            </thead>
+  <a href="{% url 'addroom'%}">
+    <h1 class="tablink" onclick="openPage('new')" id="defaultOpen">Add Room</h1>
+  </a>
+  <div class="tabcontent" id="edit">
+    <table class="table1">
+      <thead>
+        <tr class="table-headers">
+          <th>Room No.</th>
+          <th>Seating Capacity</th>
+          <th class="empty"></th>
+        </tr>
+      </thead>
 
-            <tbody>
-            {% for rm in rooms %}
-            <tr>
-             <td>{{rm.r_number}}</td>
-             <td>{{rm.seating_capacity}}</td>
-             <td class="empty">
-                <form action="{% url 'deleteroom' rm.id %}" method="post">
-                        {% csrf_token %}
-                        <input type="submit" value="X" class="cross">
-                </form>
-             </td>
-             </tr>
-            {% endfor %}
-            </tbody>
+      <tbody>
+        {% for rm in rooms %}
+        <tr>
+          <td>{{rm.r_number}}</td>
+          <td>{{rm.seating_capacity}}</td>
+          <td class="empty">
+            <form action="{% url 'deleteroom' rm.id %}" method="post">
+              {% csrf_token %}
+              <input type="submit" value="X" class="cross">
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
 
-        </table>
-    </div>
+    </table>
+  </div>
 </fieldset>
 
 
 <div class="img">
-	<img src="{% static 'img/bench3.png' %}">
+  <img src="{% static 'img/bench3.png' %}">
 </div>
 <div class="img2">
-	<img src="{% static 'img/bench2.png' %}">
+  <img src="{% static 'img/bench2.png' %}">
 </div>
 
 {% endblock %}

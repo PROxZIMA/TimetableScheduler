@@ -5,37 +5,41 @@
 
 
 <fieldset class="fieldset">
-    <a href="{% url 'addcourse'%}"><h1 class="tablink" onclick="openPage('new')" id="defaultOpen">Add Course</h1></a>
-    <h1 class="tablink" onclick="openPage('edit')" id="link_to_edit">Edit Course</h1>
-    <div class="tabcontent" id="edit">
-        <table class="table1">
-            <thead>
-            <tr class="table-headers">
-            <th>Course Code</th>
-            <th>Course Name</th>
-            <th>Max number of students</th>
-            <th  class="empty"></th>
-            </tr>
-            </thead>
+  <a href="{% url 'addcourse'%}">
+    <h1 class="tablink" onclick="openPage('new')" id="defaultOpen">Add Course</h1>
+  </a>
+  <h1 class="tablink" onclick="openPage('edit')" id="link_to_edit">Edit Course</h1>
+  <div class="tabcontent" id="edit">
+    <table class="table1">
+      <thead>
+        <tr class="table-headers">
+          <th>Course Code</th>
+          <th>Course Name</th>
+          <th>Max students</th>
+          <th>Instructors</th>
+          <th class="empty"></th>
+        </tr>
+      </thead>
 
-            <tbody>
-            {% for crs in courses %}
-            <tr>
-             <td>{{crs.course_number}}</td>
-             <td>{{crs.course_name}}</td>
-             <td>{{crs.max_numb_students}}</td>
-             <td class="empty">
-                <form action="{% url 'deletecourse' crs.course_number %}" method="post">
-                        {% csrf_token %}
-                        <input type="submit" value="X" class="cross">
-                </form>
-             </td>
-             </tr>
-            {% endfor %}
-            </tbody>
+      <tbody>
+        {% for crs in courses %}
+        <tr>
+          <td>{{crs.course_number}}</td>
+          <td>{{crs.course_name}}</td>
+          <td>{{crs.max_numb_students}}</td>
+          <td>{{instructor|dictKey:crs.course_number}}</td>
+          <td class="empty">
+            <form action="{% url 'deletecourse' crs.course_number %}" method="post">
+              {% csrf_token %}
+              <input type="submit" value="X" class="cross">
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
 
-        </table>
-    </div>
+    </table>
+  </div>
 </fieldset>
 
 <div class="img">
@@ -43,11 +47,3 @@
 </div>
 
 {% endblock %}
-
-
-
-
-
-
-
-

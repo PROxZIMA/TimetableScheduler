@@ -1,12 +1,10 @@
-from django.db import models
+import math
 import random as rnd
 from django.db import models
-import math
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save, post_delete
 from datetime import timedelta, date
-
 
 time_slots = (
     ('9:30 - 10:30', '9:30 - 10:30'),
@@ -50,7 +48,9 @@ class Instructor(models.Model):
 
 class MeetingTime(models.Model):
     pid = models.CharField(max_length=4, primary_key=True)
-    time = models.CharField(max_length=50, choices=time_slots, default='11:30 - 12:30')
+    time = models.CharField(max_length=50,
+                            choices=time_slots,
+                            default='11:30 - 12:30')
     day = models.CharField(max_length=15, choices=DAYS_OF_WEEK)
 
     def __str__(self):
@@ -83,18 +83,30 @@ class Section(models.Model):
     section_id = models.CharField(max_length=25, primary_key=True)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     num_class_in_week = models.IntegerField(default=0)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, blank=True, null=True)
-    meeting_time = models.ForeignKey(MeetingTime, on_delete=models.CASCADE, blank=True, null=True)
-    room = models.ForeignKey(Room,on_delete=models.CASCADE, blank=True, null=True)
-    instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE, blank=True, null=True)
+    course = models.ForeignKey(Course,
+                               on_delete=models.CASCADE,
+                               blank=True,
+                               null=True)
+    meeting_time = models.ForeignKey(MeetingTime,
+                                     on_delete=models.CASCADE,
+                                     blank=True,
+                                     null=True)
+    room = models.ForeignKey(Room,
+                             on_delete=models.CASCADE,
+                             blank=True,
+                             null=True)
+    instructor = models.ForeignKey(Instructor,
+                                   on_delete=models.CASCADE,
+                                   blank=True,
+                                   null=True)
 
     def set_room(self, room):
-        section = Section.objects.get(pk = self.section_id)
+        section = Section.objects.get(pk=self.section_id)
         section.room = room
         section.save()
 
     def set_meetingTime(self, meetingTime):
-        section = Section.objects.get(pk = self.section_id)
+        section = Section.objects.get(pk=self.section_id)
         section.meeting_time = meetingTime
         section.save()
 
@@ -102,6 +114,7 @@ class Section(models.Model):
         section = Section.objects.get(pk=self.section_id)
         section.instructor = instructor
         section.save()
+
 
 '''
 class Data(models.Manager):
@@ -125,11 +138,3 @@ class Data(models.Manager):
     def get_numberOfClasses(self): return self._numberOfClasses
 
 '''
-
-
-
-
-
-
-
-

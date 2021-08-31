@@ -5,40 +5,42 @@
 
 
 <fieldset class="fieldset">
-    <a href="{% url 'addmeetingtime'%}"><h1 class="tablink" onclick="openPage('new')" id="defaultOpen">Add Meeting time</h1></a>
-    <div class="tabcontent" id="edit">
-			<table class="table1">
-				<thead>
-				<tr class="table-headers">
-				<th>PID</th>
-				<th>Day</th>
-				<th>Timing</th>
-				<th  class="empty"></th>
-				</tr>
-				</thead>
+  <a href="{% url 'addmeetingtime'%}">
+    <h1 class="tablink" onclick="openPage('new')" id="defaultOpen">Add Meeting time</h1>
+  </a>
+  <div class="tabcontent" id="edit">
+    <table class="table1">
+      <thead>
+        <tr class="table-headers">
+          <th>PID</th>
+          <th>Day</th>
+          <th>Timing</th>
+          <th class="empty"></th>
+        </tr>
+      </thead>
 
-				<tbody>
-				{% for mt in meeting_times %}
-				<tr>
-				 <td>{{mt.pid}}</td>
-				 <td>{{mt.day}}</td>
-				 <td>{{mt.time}}</td>
-				 <td class="empty">
-					<form action="{% url 'deletemeetingtime' mt.pid %}" method="post">
-						{% csrf_token %}
-						<input type="submit" value="X" class="cross">
-					</form>
-				 </td>
-				 </tr>
-				{% endfor %}
-				</tbody>
+      <tbody>
+        {% for mt in meeting_times %}
+        <tr>
+          <td>{{mt.pid}}</td>
+          <td>{{mt.day}}</td>
+          <td>{{mt.time}}</td>
+          <td class="empty">
+            <form action="{% url 'deletemeetingtime' mt.pid %}" method="post">
+              {% csrf_token %}
+              <input type="submit" value="X" class="cross">
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
 
-			</table>
-		</div>
+    </table>
+  </div>
 </fieldset>
 
 <div class="img">
-	<img src="{% static 'img/img_clk.png' %}">
+  <img src="{% static 'img/img_clk.png' %}">
 </div>
 
 {% endblock %}

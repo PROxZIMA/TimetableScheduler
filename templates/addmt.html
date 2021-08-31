@@ -1,20 +1,20 @@
-
-
 {% extends 'base.html' %}
 {%block content%}
 {% load static %}
 <form method="post">
-	{% csrf_token %}
-	<fieldset>
-		<h1 class="tablink" onclick="openPage('new')" id="defaultOpen">Add Meeting time</h1>
-		<a href="{% url 'editmeetingtime' %}"><h1 class="tablink" onclick="openPage('edit')" id="link_to_edit">Edit Meeting time</h1></a>
-		<div class="tabcontent" id="new">
-			{{ form.as_p }}
-		<input type="submit" value="Submit" class="submit">
-		</div>
-	</fieldset>
+  {% csrf_token %}
+  <fieldset>
+    <h1 class="tablink" onclick="openPage('new')" id="defaultOpen">Add Meeting time</h1>
+    <a href="{% url 'editmeetingtime' %}">
+      <h1 class="tablink" onclick="openPage('edit')" id="link_to_edit">Edit Meeting time</h1>
+    </a>
+    <div class="tabcontent" id="new">
+      {{ form.as_p }}
+      <input type="submit" value="Submit" class="submit">
+    </div>
+  </fieldset>
 </form>
 <div class="img">
-	<img src="{% static 'img/img_clk.png' %}">
+  <img src="{% static 'img/img_clk.png' %}">
 </div>
 {%endblock%}

@@ -2,15 +2,17 @@
 {% block content %}
 {% load static %}
 <form method="post">
-	{% csrf_token %}
-	<fieldset>
-		<h1 class="tablink" onclick="openPage('new')" id="defaultOpen">Add Section</h1>
-		<a href="{% url 'editsection' %}"><h1 class="tablink" onclick="openPage('edit')" id="link_to_edit">Edit Section</h1></a>
-		<div class="tabcontent" id="new">
-			{{ form.as_p }}
-		<input type="submit" value="Submit" class="submit">
-		</div>
-	</fieldset>
+  {% csrf_token %}
+  <fieldset>
+    <h1 class="tablink" onclick="openPage('new')" id="defaultOpen">Add Section</h1>
+    <a href="{% url 'editsection' %}">
+      <h1 class="tablink" onclick="openPage('edit')" id="link_to_edit">Edit Section</h1>
+    </a>
+    <div class="tabcontent" id="new">
+      {{ form.as_p }}
+      <input type="submit" value="Submit" class="submit">
+    </div>
+  </fieldset>
 </form>
 <div class="img">
 
