@@ -4,10 +4,12 @@
 
 
 
+
 <fieldset class="fieldset">
   <a href="{% url 'instructorAdd'%}">
     <h1 class="tablink" onclick="openPage('new')" id="defaultOpen">Add Instructor</h1>
   </a>
+  <h1 class="tablink" onclick="openPage('edit')" id="link_to_edit">Edit Instructor</h1>
   <div class="tabcontent" id="edit">
     <table class="table1">
       <thead>
@@ -36,9 +38,5 @@
     </table>
   </div>
 </fieldset>
-
-<div class="img">
-  <img src="{% static 'img/teacher.png' %}">
-</div>
 
 {% endblock %}

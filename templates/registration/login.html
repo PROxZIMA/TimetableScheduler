@@ -1,0 +1,63 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Login</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="DSC AISSMSCOE">
+    <meta name="description" content="Login">
+
+    <!-- Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'CSS/login.css' %}">
+
+  </head>
+  <body>
+    <form method="post" id="form1">
+      {% csrf_token %}
+      <div id="divLOGINPAGE" class="sr">
+        <div class="login-box-body">
+          <div class="row">
+            <div class="col">
+              <div class="text-center loginLeft">
+                <h4 class="logWelC">WELCOME TO </h4>
+                <img class="logoLogin" src="{% static 'img/logo.jpg' %}">
+                <h3 class="Alignment">
+                  <center><strong>COLLEGE OF ENGINEERING</strong></center>
+                </h3>
+                <h3 class="Alignment">
+                  <center><strong>PUNE</strong></center>
+                </h3>
+                <h5><a target="_blank" href="http://aissmscoe.com/">http://aissmscoe.com/</a></h5>
+              </div>
+            </div>
+            <div class="col">
+              <div class="loginRight">
+                <h3><strong>Sign In </strong></h3>
+                <div class="form-group has-feedback">
+                  {{ form.username }}
+                  <span class="glyphicon glyphicon-user  form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                  {{ form.password }}
+                  <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                  {% if form.errors %}
+                  <span class="lblnote">Invalid User Name Or Password.</span>
+                  {% endif %}
+                </div>
+                <button type="submit" class="btn btn-info"><span class="fa fa-unlock-alt" ></span>&nbsp;Login</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </body>
+</html>
+
+

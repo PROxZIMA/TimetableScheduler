@@ -1,60 +1,82 @@
 {% load static %}
+{% load index %}
+
+{% url 'home' as home%}
+{% url 'instructorAdd' as instructorAdd %}
+{% url 'roomAdd' as roomAdd %}
+{% url 'meetingTimeAdd' as meetingTimeAdd %}
+{% url 'courseAdd' as courseAdd %}
+{% url 'departmentAdd' as departmentAdd %}
+{% url 'sectionAdd' as sectionAdd %}
+
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <title>
-    Timetable Scheduler
-  </title>
+  <meta charset="utf-8">
+  <title>Timetable Scheduler</title>
+
+  <meta name="author" content="DSC AISSMSCOE">
+  <meta name="description" content="Timetable Scheduler">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand:400,500,700">
   <link rel="stylesheet" type="text/css" href="{% static 'CSS/style.css' %}">
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 
 <body>
+
   <div class="main">
-    <div class="logo">
-      <h2>Time-Table Scheduler</h2>
-      <h4>Schedule Timetable with ease</h4>
-    </div>
-    <nav>
-      <ul>
-        <li><a href="{% url 'home' %}">Home</a></li>
-        <li><a href="{% url 'instructorAdd' %}">Add Instructor</a></li>
-        <li><a href="{% url 'roomAdd' %}">Add Room </a></li>
-        <li><a href="{% url 'meetingTimeAdd' %}">Add Meeting time</a></li>
-        <li><a href="{% url 'courseAdd' %}">Add Course</a></li>
-        <li><a href="{% url 'departmentAdd' %}">Add department</a></li>
-        <li><a href="{% url 'sectionAdd' %}">Add Section</a></li>
-      </ul>
+    <nav class="navbar">
+      <div class="navbar-container">
+        <input class="hamburger" type="checkbox" name="" id="">
+        <div class="hamburger-lines">
+          <span class="line line1"></span>
+          <span class="line line2"></span>
+          <span class="line line3"></span>
+        </div>
+        <ul class="menu-items">
+          <li class="{% active request home %}"><a href="{{ home }}">Home</a></li>
+          <li class="{% active request instructorAdd %}"><a href="{{ instructorAdd }}">Add Instructor</a></li>
+          <li class="{% active request roomAdd %}"><a href="{{ roomAdd }}">Add Room</a></li>
+          <li class="{% active request meetingTimeAdd %}"><a href="{{ meetingTimeAdd }}">Add Meeting time</a></li>
+          <li class="{% active request courseAdd %}"><a href="{{ courseAdd }}">Add Course</a></li>
+          <li class="{% active request departmentAdd %}"><a href="{{ departmentAdd }}">Add department</a></li>
+          <li class="{% active request sectionAdd %}"><a href="{{ sectionAdd }}">Add Section</a></li>
+          <li><a href="{% url 'logout' %}"><i style="font-size:1.6rem" class="fa">&#xf08b;</i></a></li>
+        </ul>
+        <div class="logo">
+          <h2><a href="{{ home }}">Time-Table Scheduler</a></h2>
+          <h4>Schedule Timetable with ease</h4>
+        </div>
+      </div>
     </nav>
-    {% block content %}
-
-
-    {% endblock %}
-
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 col-xxl-12 col-xl-12 col-sm-12 ml-auto col-lg-12 formpart">
+          {% block content %}
+          {% endblock %}
+        </div>
+      </div>
+    </div>
   </div>
 
-  <script type="text/javascript">
-
-    var checkList = document.getElementById('list1');
-    var items = document.getElementById('items');
-    checkList.getElementsByClassName('anchor')[0].onclick = function (evt) {
-      if (items.classList.contains('visible')) {
-        items.classList.remove('visible');
-        items.style.display = "none";
-      }
-
-      else {
-        items.classList.add('visible');
-        items.style.display = "block";
-      }
-    }
-
-    items.onblur = function (evt) {
-      items.classList.remove('visible');
-    }
-  </script>
-
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>

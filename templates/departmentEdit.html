@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
+{% load index %}
+
 
 
 
@@ -8,6 +10,7 @@
   <a href="{% url 'departmentAdd'%}">
     <h1 class="tablink" onclick="openPage('new')" id="defaultOpen">Add Department</h1>
   </a>
+  <h1 class="tablink" onclick="openPage('edit')" id="link_to_edit">Edit Department</h1>
   <div class="tabcontent" id="edit">
     <table class="table1">
       <thead>
@@ -32,13 +35,8 @@
         </tr>
         {% endfor %}
       </tbody>
-
     </table>
   </div>
 </fieldset>
-
-<div class="img">
-
-</div>
 
 {% endblock %}

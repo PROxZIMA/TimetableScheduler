@@ -1,40 +1,35 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
+{% load index %}
 
-{% for section in sections %}
-<h2 class="secHead">{{ section.section_id }} ({{ section.department }})</h2>
-<table class="table2">
-  <colgroup>
-    <col>
-    <col>
-    <col>
-    <col>
-    <col>
-    <col>
-  </colgroup>
-  <tr>
-    <th>Class #</th>
-    <th>Course</th>
-    <th>Venue(Block- Room)</th>
-    <th>Instructor</th>
-    <th>Class Timing</th>
-  </tr>
-  {% for class in schedule %}
-  {% if class.section == section.section_id %}
-  <tr>
-    <th>{{class.section_id}}</th>
-    <td>{{class.course}}</td>
-    <td>{{class.room}}</td>
-    <td>{{class.instructor}}</td>
-    <td>{{class.meeting_time}}</td>
-  </tr>
-  {% endif %}
+
+<div>
+  {% for section in sections %}
+  <h2 class="secHead">{{ section.section_id }} ({{ section.department }})</h2>
+  <table class="table2">
+    <colgroup>
+      <col>
+      {% for i in timeSlots %}
+      <col>
+      {% endfor %}
+    </colgroup>
+    <tr>
+      <th>Class #</th>
+      {% for time in timeSlots %}
+      <th>{{time.0}}</th>
+      {% endfor %}
+    </tr>
+    {% for week in weekDays %}
+    <tr>
+      <th>{{week.0}}</th>
+      {% for time in timeSlots %}
+      <td>{% sub schedule section.section_id week.0 time.0 %}</td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </table>
   {% endfor %}
-</table>
-
-{% endfor %}
-<div class="extra">
-
 </div>
+
 {% endblock %}

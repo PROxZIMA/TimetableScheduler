@@ -3,8 +3,8 @@
 ### An intelligent timetable generator that generates University timetable using `Genetic Algorithm`.
 
 #### Dependencies:
- 1. python3.6 or above
- 2. Django2.0 or above
+ 1. python 3.6 or above
+ 2. Django 2.0 or above
 
 #### Run on your local machine by:
 * `git clone https://github.com/PROxZIMA/TimetableScheduler.git/`
@@ -13,7 +13,7 @@
 * then go to port `http://127.0.0.1:8000/` to run the local server
 
 #### About the project:
-project uses genetic algorithm to satisfy the constraints related to Timetable scheduling. The program satisfies the following constraints:-
+Project uses genetic algorithm to satisfy the constraints related to Timetable scheduling. The program satisfies the following constraints:-
 
 | Hard Constraints                                  | Soft Constraints                                     |
 | --------------------------------------------------|:----------------------------------------------------:|

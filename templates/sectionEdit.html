@@ -4,10 +4,12 @@
 
 
 
+
 <fieldset class="fieldset">
   <a href="{% url 'sectionAdd'%}">
     <h1 class="tablink" onclick="openPage('new')" id="defaultOpen">Add Section</h1>
   </a>
+  <h1 class="tablink" onclick="openPage('edit')" id="link_to_edit">Edit Section</h1>
   <div class="tabcontent" id="edit">
     <table class="table1">
       <thead>
@@ -38,9 +40,5 @@
     </table>
   </div>
 </fieldset>
-
-<div class="img">
-
-</div>
 
 {% endblock %}

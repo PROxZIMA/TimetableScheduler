@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
+
+
 <form method="post">
   {% csrf_token %}
   <fieldset>
@@ -14,8 +16,5 @@
     </div>
   </fieldset>
 </form>
-<div class="img">
-
-</div>
 
 {% endblock %}

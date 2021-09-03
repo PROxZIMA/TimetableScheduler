@@ -4,7 +4,7 @@ from .views import *
 
 urlpatterns = [
     path('', home, name='home'),
-    path('timetable_generation/', timetable, name='timetable'),
+    path('timetableGeneration/', timetable, name='timetable'),
 
     path('instructorAdd/', instructorAdd, name='instructorAdd'),
     path('instructorEdit/', instructorEdit, name='instructorEdit'),
