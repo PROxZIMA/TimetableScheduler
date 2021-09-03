@@ -307,21 +307,25 @@ fieldset select {
   width: 100%;
 }
 
-#defaultOpen:hover {
-  color: red;
+.tablink {
+  display: flex;
+  justify-content: space-around;
+  gap: 80px;
 }
 
-#link_to_edit:hover {
-  color: red;
+.tablink h1 {
+color: #257a7a;
+padding-bottom: 20px;
+cursor: pointer;
+font-size: 3rem;
 }
 
-fieldset h1 {
-  color: #257a7a;
-  padding-bottom: 20px;
-  margin-inline: 45px;
-  display: inline-block;
-  cursor: pointer;
-  font-size: 3rem;
+.tablink h1:hover {
+  color: #01d7a7;
+}
+
+.tablink h1:hover, .tablink a:hover {
+  text-decoration: none;
 }
 
 fieldset label {
