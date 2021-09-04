@@ -55,7 +55,9 @@
           <li class="{% active request courseAdd %}"><a href="{{ courseAdd }}">Course</a></li>
           <li class="{% active request departmentAdd %}"><a href="{{ departmentAdd }}">Department</a></li>
           <li class="{% active request sectionAdd %}"><a href="{{ sectionAdd }}">Section</a></li>
+          {% if user.is_authenticated %}
           <li><a href="{% url 'logout' %}"><i style="font-size:1.6rem" class="fa">&#xf08b;</i></a></li>
+          {% endif %}
         </ul>
       </div>
     </nav>

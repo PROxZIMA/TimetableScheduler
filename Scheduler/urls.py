@@ -22,6 +22,7 @@ urlpatterns = [
 ]
 
 handler404 = 'SchedulerApp.views.error_404'
+handler500 = 'SchedulerApp.views.error_500'
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL,
