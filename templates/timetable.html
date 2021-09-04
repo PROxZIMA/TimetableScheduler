@@ -7,27 +7,26 @@
 <div>
   {% for section in sections %}
   <h2 class="secHead">{{ section.section_id }} ({{ section.department }})</h2>
-  <table class="table2">
-    <colgroup>
-      <col>
-      {% for i in timeSlots %}
-      <col>
+  <table class="timetable">
+    <thead>
+      <tr>
+        <th>Class #</th>
+        {% for time in timeSlots %}
+        <th>{{time.0}}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for week in weekDays %}
+      <tr>
+        <th>{{week.0}}</th>
+        {% for time in timeSlots %}
+        <td>{% sub schedule section.section_id week.0 time.0 %}</td>
+        {% endfor %}
+      </tr>
       {% endfor %}
-    </colgroup>
-    <tr>
-      <th>Class #</th>
-      {% for time in timeSlots %}
-      <th>{{time.0}}</th>
-      {% endfor %}
-    </tr>
-    {% for week in weekDays %}
-    <tr>
-      <th>{{week.0}}</th>
-      {% for time in timeSlots %}
-      <td>{% sub schedule section.section_id week.0 time.0 %}</td>
-      {% endfor %}
-    </tr>
-    {% endfor %}
+    </tbody>
   </table>
   {% endfor %}
 </div>

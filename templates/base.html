@@ -24,8 +24,9 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand:400,500,700">
   <link rel="stylesheet" type="text/css" href="{% static 'CSS/style.css' %}">
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -42,20 +43,20 @@
           <span class="line line2"></span>
           <span class="line line3"></span>
         </div>
-        <ul class="menu-items">
-          <li class="{% active request home %}"><a href="{{ home }}">Home</a></li>
-          <li class="{% active request instructorAdd %}"><a href="{{ instructorAdd }}">Add Instructor</a></li>
-          <li class="{% active request roomAdd %}"><a href="{{ roomAdd }}">Add Room</a></li>
-          <li class="{% active request meetingTimeAdd %}"><a href="{{ meetingTimeAdd }}">Add Meeting time</a></li>
-          <li class="{% active request courseAdd %}"><a href="{{ courseAdd }}">Add Course</a></li>
-          <li class="{% active request departmentAdd %}"><a href="{{ departmentAdd }}">Add department</a></li>
-          <li class="{% active request sectionAdd %}"><a href="{{ sectionAdd }}">Add Section</a></li>
-          <li><a href="{% url 'logout' %}"><i style="font-size:1.6rem" class="fa">&#xf08b;</i></a></li>
-        </ul>
         <div class="logo">
           <h2><a href="{{ home }}">Time-Table Scheduler</a></h2>
           <h4>Schedule Timetable with ease</h4>
         </div>
+        <ul class="menu-items">
+          <li class="{% active request home %}"><a href="{{ home }}">Home</a></li>
+          <li class="{% active request instructorAdd %}"><a href="{{ instructorAdd }}">Instructor</a></li>
+          <li class="{% active request roomAdd %}"><a href="{{ roomAdd }}">Room</a></li>
+          <li class="{% active request meetingTimeAdd %}"><a href="{{ meetingTimeAdd }}">Meeting time</a></li>
+          <li class="{% active request courseAdd %}"><a href="{{ courseAdd }}">Course</a></li>
+          <li class="{% active request departmentAdd %}"><a href="{{ departmentAdd }}">Department</a></li>
+          <li class="{% active request sectionAdd %}"><a href="{{ sectionAdd }}">Section</a></li>
+          <li><a href="{% url 'logout' %}"><i style="font-size:1.6rem" class="fa">&#xf08b;</i></a></li>
+        </ul>
       </div>
     </nav>
     <div class="container-fluid">
