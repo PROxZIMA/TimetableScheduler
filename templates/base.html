@@ -50,7 +50,10 @@
           <li class="{% active request courseAdd %}"><a href="{{ courseAdd }}">Add Course</a></li>
           <li class="{% active request departmentAdd %}"><a href="{{ departmentAdd }}">Add department</a></li>
           <li class="{% active request sectionAdd %}"><a href="{{ sectionAdd }}">Add Section</a></li>
+          {% if user.is_authenticated %}
           <li><a href="{% url 'logout' %}"><i style="font-size:1.6rem" class="fa">&#xf08b;</i></a></li>
+          {% endif %}
+        
         </ul>
         <div class="logo">
           <h2><a href="{{ home }}">Time-Table Scheduler</a></h2>
