@@ -1,3 +1,20 @@
+:root {
+  --green1: #57ACAC;
+  --green2: #38c0b3;
+  --green3: #257a7a;
+  --green4: #0FCD9D;
+  --green5: #01d7a7;
+  --green6: #00BE8E;
+  --green7: #009879;
+  --white: #fff;
+  --grey: #aaa;
+  --dark-grey: #444;
+  --light-grey: #a29999;
+  --lighter-grey: #dddddd;
+  --lightest-grey: #f3f3f3;
+  --box-shadow: #9e9292;
+}
+
 html {
   font-size: 100%;
   box-sizing: border-box;
@@ -31,7 +48,7 @@ button {
 }
 
 .logo h2 {
-  color: #257a7a;
+  color: var(--green3);
 }
 
 .logo h2 a {
@@ -40,7 +57,7 @@ button {
 }
 
 .logo h4 {
-  color: #a29999;
+  color: var(--light-grey);
 }
 
 .navbar input[type="checkbox"],
@@ -49,10 +66,10 @@ button {
 }
 
 .navbar {
-  box-shadow: 0px 5px 5px 0px #aaa;
+  box-shadow: 0px 5px 5px 0px var(--grey);
   position: relative;
   width: 100%;
-  background: #fff;
+  background: var(--white);
   color: #000;
   opacity: 0.85;
   height: 10rem;
@@ -84,7 +101,7 @@ button {
 
 .menu-items a {
   text-decoration: none;
-  color: #444;
+  color: var(--dark-grey);
   position: relative;
   font-size: 1.3rem;
   font-weight: 500;
@@ -122,6 +139,20 @@ button {
   content: '';
   transition: all 500ms ease;
   transform: scaleX(1);
+}
+
+.menu-items li:nth-last-child(1):hover::before{
+  content: '';
+  transition: all 500ms ease;
+  transform: scaleX(0);
+}
+
+.menu-items li a:hover{
+  color:#ff3f3f;
+}
+
+.menu-items .active a {
+  color:#ff3f3f;
 }
 
 @media screen and (max-width: 54rem) {
@@ -165,7 +196,7 @@ button {
     height: 0.4rem;
     width: 100%;
     border-radius: 1rem;
-    background: #333;
+    background: var(--dark-grey);
   }
   .navbar-container .hamburger-lines .line1 {
     transform-origin: 0% 0%;
@@ -180,7 +211,7 @@ button {
   }
   .navbar .menu-items {
     padding-top: 10rem;
-    background: #fff;
+    background: var(--white);
     height: 100vh;
     max-width: 30rem;
     transform: translate(-150%);
@@ -190,7 +221,7 @@ button {
     margin-top: -2.5rem;
     padding-left: 10rem;
     transition: transform 0.5s ease-in-out;
-    box-shadow: 5px 0px 10px 0px #aaa;
+    box-shadow: 5px 0px 10px 0px var(--grey);
     position: relative;
     z-index: 1;
   }
@@ -226,16 +257,11 @@ button {
   }
 }
 
-.affix {
-  padding: 0;
-  background-color: #111;
-}
-
 .halfpart {
   width: 100%;
-  height: 50vh;
   display: flex;
-  align-items: flex-start;
+  justify-content: center;
+  height: 50vh;
 }
 
 .card {
@@ -245,20 +271,20 @@ button {
 }
 
 .inner {
-  width: 85%;
+  width: 100%;
   display: flex;
   justify-content: center;
 }
 
 .inner img {
-  width: 30rem  ;
-  height: 300px;
+  width: 35rem;
+  height: 35rem;
 }
 
 .card .txt h2 {
   font-size: 4rem;
   margin-bottom: 2rem;
-  color: #38c0b3;
+  color: var(--green2);
 }
 
 .card .txt p {
@@ -274,17 +300,41 @@ button {
 }
 
 .card .crdbtn .btn {
-	color: #fff;
-	background-color: #01d7a7;
+	color: var(--white);
+	background-color: var(--green5);
+	font-size: 1.6rem;
+  font-weight: bold;
+	line-height: 2.6rem;
 	border-radius: 0.8rem;
 	padding: 1.6rem 3.6rem;
 	text-align: center;
 	letter-spacing: 0.9px;
 	text-decoration: none;
-	line-height: 2.6rem;
-	font-size: 1.6rem;
-	box-shadow: 2px 2px 6px #9e9292;
+	box-shadow: 2px 2px 6px var(--box-shadow);
 }
+
+/* Ripple effect */
+.card .crdbtn .btn {
+  background-position: center;
+  transition: background 0.5s;
+}
+
+.card .crdbtn .btn:hover {
+  background: var(--green6) radial-gradient(circle, transparent 1%, var(--green4) 1%) center/15000%;
+}
+
+.card .crdbtn .btn:active {
+  color: var(--white);
+  background-color: var(--green4);
+  background-size: 100%;
+  transition: background 0s;
+}
+
+.card .crdbtn .btn:focus {
+  color: var(--white);
+  background-color: var(--green6);
+}
+
 
 .loaderClass {
   display: none;
@@ -292,7 +342,7 @@ button {
 
 .loader {
   fill: transparent;
-  stroke: #38c0b3;
+  stroke: var(--green2);
   stroke-width: 5;
   animation: dash 2s ease infinite, rotate 2s linear infinite;
 }
@@ -325,7 +375,7 @@ fieldset {
   background: transparent;
   box-shadow: rgba(0, 0, 0, 0.145) 0px 4px 8px,
               rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  border-top: 5px solid #57ACAC;
+  border-top: 5px solid var(--green1);
 }
 
 .fieldset {
@@ -346,14 +396,14 @@ fieldset {
 }
 
 .tablink h1 {
-  color: #257a7a;
+  color: var(--green3);
   padding-bottom: 2rem;
   cursor: pointer;
   font-size: 3rem;
 }
 
 .tablink h1:hover {
-  color: #01d7a7;
+  color: var(--green5);
 }
 
 .tablink h1:hover, .tablink a:hover {
@@ -382,7 +432,7 @@ fieldset {
   font-size: 1.6rem;
   padding: 0.6rem 1.2rem;
   color: #555;
-  background-color: #fff;
+  background-color: var(--white);
   background-image: none;
   border: 1px solid #d2d6de;
   border-radius: 0.4rem;
@@ -393,7 +443,7 @@ fieldset {
 .tabcontent p input:focus,
 .tabcontent p select:focus {
   outline: 0;
-  border-color: #01d7a7;
+  border-color: var(--green5);
 }
 
 .tabcontent p select[multiple] {
@@ -417,37 +467,39 @@ fieldset {
   font-weight: bold;
   text-transform: uppercase;
   cursor: pointer;
-  color: white;
-  background-color: #01d7a7;
-  box-shadow: 2px 2px 6px #9e9292;
+  color: var(--white);
+  background-color: var(--green5);
+  box-shadow: 2px 2px 6px var(--box-shadow);
   outline: none;
 }
 
 /* Ripple effect */
 .submit {
   background-position: center;
-  transition: background 0.8s;
+  transition: background 0.5s;
 }
+
 .submit:hover {
-  background: #1AF0C0 radial-gradient(circle, transparent 1%, #1AF0C0 1%) center/15000%;
+  background: var(--green6) radial-gradient(circle, transparent 1%, var(--green4) 1%) center/15000%;
 }
-.submit:focus {
-  color: white;
-  background-color: #00BE8E;
-}
+
 .submit:active {
-  color: white;
-  background-color: #33FFD9;
+  color: var(--white);
+  background-color: var(--green4);
   background-size: 100%;
   transition: background 0s;
 }
 
+.submit:focus {
+  color: var(--white);
+  background-color: var(--green6);
+}
 
 
 .secHead {
   margin-top: 2rem;
   margin-bottom: 20px;
-  color: #257a7a;
+  color: var(--green3);
   font-size: 1.8rem;
 }
 
@@ -464,8 +516,8 @@ fieldset {
 
 .editTable thead tr,
 .timetable thead tr {
-  background-color: #009879;
-  color: #ffffff;
+  background-color: var(--green7);
+  color: var(--white);
   font-weight: bold;
 }
 
@@ -478,17 +530,17 @@ fieldset {
 
 .editTable tbody tr,
 .timetable tbody tr {
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid var(--lighter-grey);
 }
 
 .editTable tbody tr:nth-of-type(even),
 .timetable tbody tr:nth-of-type(even) {
-  background-color: #f3f3f3;
+  background-color: var(--lightest-grey);
 }
 
 .editTable tbody tr:last-of-type,
 .timetable tbody tr:last-of-type {
-  border-bottom: 2px solid #009879;
+  border-bottom: 2px solid var(--green7);
 }
 
 .timetable {
@@ -506,7 +558,7 @@ fieldset {
 }
 .timetable tbody tr > th:first-child {
   text-align: left;
-  color: #009879;
+  color: var(--green7);
 }
 
 .empty form {
@@ -518,10 +570,10 @@ fieldset {
   border-radius: 50%;
   font-size: 1rem;
   font-weight: bold;
-  box-shadow: 0px 1px 3px 0px #9e9292;
+  box-shadow: 0px 1px 3px 0px var(--box-shadow);
   padding: 4px;
-  color: #fff;
-  background-color: #009879;
+  color: var(--white);
+  background-color: var(--green7);
   cursor: pointer;
   width: 2.6rem;
   height: 2.6rem;
