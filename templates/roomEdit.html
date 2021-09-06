@@ -6,12 +6,14 @@
 
 
 <fieldset class="fieldset">
-  <a href="{% url 'roomAdd'%}">
-    <h1 class="tablink" onclick="openPage('new')" id="defaultOpen">Add Room</h1>
-  </a>
-  <h1 class="tablink" onclick="openPage('edit')" id="link_to_edit">Edit Rooms</h1>
+  <div class="tablink">
+    <a href="{% url 'roomAdd'%}">
+      <h1 onclick="openPage('new')" id="defaultOpen">Add Room</h1>
+    </a>
+    <h1 onclick="openPage('edit')" id="link_to_edit">Edit Rooms</h1>
+  </div>
   <div class="tabcontent" id="edit">
-    <table class="table1">
+    <table class="editTable">
       <thead>
         <tr class="table-headers">
           <th>Room No.</th>

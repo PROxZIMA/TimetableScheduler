@@ -7,9 +7,9 @@ from collections import defaultdict
 from pprint import pprint
 import random
 
-POPULATION_SIZE = 9
-NUMB_OF_ELITE_SCHEDULES = 1
-TOURNAMENT_SELECTION_SIZE = 3
+POPULATION_SIZE = 30
+NUMB_OF_ELITE_SCHEDULES = 2
+TOURNAMENT_SELECTION_SIZE = 8
 MUTATION_RATE = 0.05
 
 
@@ -19,7 +19,7 @@ class Population:
         self._data = data
         self._schedules = [Schedule().initialize() for i in range(size)]
 
-    def get_schedules(self):
+    def getSchedules(self):
         return self._schedules
 
 
@@ -52,8 +52,7 @@ class Data:
 
 
 class Class:
-    def __init__(self, id, dept, section, course):
-        self.section_id = id
+    def __init__(self, dept, section, course):
         self.department = dept
         self.course = course
         self.instructor = None
@@ -95,21 +94,35 @@ class Schedule:
         self._classes = []
         self._numberOfConflicts = 0
         self._fitness = -1
-        self._classNumb = 0
         self._isFitnessChanged = True
 
-    def get_classes(self):
+    def getClasses(self):
         self._isFitnessChanged = True
         return self._classes
 
-    def get_numbOfConflicts(self):
+    def getNumbOfConflicts(self):
         return self._numberOfConflicts
 
-    def get_fitness(self):
+    def getFitness(self):
         if self._isFitnessChanged:
-            self._fitness = self.calculate_fitness()
+            self._fitness = self.calculateFitness()
             self._isFitnessChanged = False
         return self._fitness
+
+    def addCourse(self, data, course, courses, dept, section):
+        newClass = Class(dept, section.section_id, course)
+
+        newClass.set_meetingTime(
+            data.get_meetingTimes()[random.randrange(0, len(data.get_meetingTimes()))])
+
+        newClass.set_room(
+            data.get_rooms()[random.randrange(0, len(data.get_rooms()))])
+
+        crs_inst = course.instructors.all()
+        newClass.set_instructor(
+            crs_inst[random.randrange(0, len(crs_inst))])
+
+        self._classes.append(newClass)
 
     def initialize(self):
         sections = Section.objects.all()
@@ -123,134 +136,137 @@ class Schedule:
             courses = dept.courses.all()
             for course in courses:
                 for i in range(n // len(courses)):
-                    newClass = Class(self._classNumb, dept, section.section_id, course)
-                    self._classNumb += 1
+                    self.addCourse(data, course, courses, dept, section)
 
-                    newClass.set_meetingTime(
-                        data.get_meetingTimes()[random.randrange(0, len(data.get_meetingTimes()))])
+            for course in courses.order_by('?')[:(n % len(courses))]:
+                self.addCourse(data, course, courses, dept, section)
 
-                    newClass.set_room(
-                        data.get_rooms()[random.randrange(0, len(data.get_rooms()))])
-
-                    crs_inst = course.instructors.all()
-                    newClass.set_instructor(
-                        crs_inst[random.randrange(0, len(crs_inst))])
-
-                    self._classes.append(newClass)
         return self
 
-    def calculate_fitness(self):
+    def calculateFitness(self):
         self._numberOfConflicts = 0
-        classes = self.get_classes()
+        classes = self.getClasses()
 
         for i in range(len(classes)):
+            # Seating capacity less them course student
             if classes[i].room.seating_capacity < int(classes[i].course.max_numb_students):
                 self._numberOfConflicts += 1
 
-            for j in range(len(classes)):
-                if j >= i:
-                    if (classes[i].meeting_time == classes[j].meeting_time) and \
-                        (classes[i].section_id  != classes[j].section_id)   and \
-                        (classes[i].section     == classes[j].section):
-                        if classes[i].room == classes[j].room:
-                            self._numberOfConflicts += 1
-                        if classes[i].instructor == classes[j].instructor:
-                            self._numberOfConflicts += 1
+            # print(classes[i].course.course_name, classes[i].meeting_time, classes[i].section, classes[i].room, classes[i].instructor)
 
-        return 1 / (1.0 * self._numberOfConflicts + 1)
+            for j in range(i + 1, len(classes)):
+                # Same course on same day
+                if (classes[i].course.course_name == classes[j].course.course_name and \
+                    str(classes[i].meeting_time).split()[1] == str(classes[j].meeting_time).split()[1]):
+                    self._numberOfConflicts += 1
+
+                # Teacher with lectures in different timetable at same time
+                if (classes[i].section != classes[j].section and \
+                    classes[i].meeting_time == classes[j].meeting_time and \
+                    classes[i].instructor == classes[j].instructor):
+                    self._numberOfConflicts += 1
+
+                # Duplicate time in a department
+                if (classes[i].section == classes[j].section and \
+                    classes[i].meeting_time == classes[j].meeting_time):
+                    self._numberOfConflicts += 1
+
+        return 1 / (self._numberOfConflicts + 1)
 
 
 class GeneticAlgorithm:
     def evolve(self, population):
-        return self._mutate_population(self._crossover_population(population))
+        return self._mutatePopulation(self._crossoverPopulation(population))
 
-    def _crossover_population(self, pop):
-        crossover_pop = Population(0)
+    def _crossoverPopulation(self, popula):
+        crossoverPopula = Population(0)
         for i in range(NUMB_OF_ELITE_SCHEDULES):
-            crossover_pop.get_schedules().append(pop.get_schedules()[i])
+            crossoverPopula.getSchedules().append(popula.getSchedules()[i])
 
         for i in range(NUMB_OF_ELITE_SCHEDULES, POPULATION_SIZE):
-            schedule1 = self._select_tournament_population(pop)
-            schedule2 = self._select_tournament_population(pop)
+            scheduleX = self._tournamentPopulation(popula)
+            scheduleY = self._tournamentPopulation(popula)
 
-            crossover_pop.get_schedules().append(
-                self._crossover_schedule(schedule1, schedule2))
+            crossoverPopula.getSchedules().append(
+                self._crossoverSchedule(scheduleX, scheduleY))
 
-        return crossover_pop
+        return crossoverPopula
 
-    def _mutate_population(self, population):
+    def _mutatePopulation(self, population):
         for i in range(NUMB_OF_ELITE_SCHEDULES, POPULATION_SIZE):
-            self._mutate_schedule(population.get_schedules()[i])
+            self._mutateSchedule(population.getSchedules()[i])
         return population
 
-    def _crossover_schedule(self, schedule1, schedule2):
+    def _crossoverSchedule(self, scheduleX, scheduleY):
         crossoverSchedule = Schedule().initialize()
-        for i in range(0, len(crossoverSchedule.get_classes())):
+        for i in range(0, len(crossoverSchedule.getClasses())):
             if random.random() > 0.5:
-                crossoverSchedule.get_classes()[i] = schedule1.get_classes()[i]
+                crossoverSchedule.getClasses()[i] = scheduleX.getClasses()[i]
             else:
-                crossoverSchedule.get_classes()[i] = schedule2.get_classes()[i]
+                crossoverSchedule.getClasses()[i] = scheduleY.getClasses()[i]
         return crossoverSchedule
 
-    def _mutate_schedule(self, mutateSchedule):
+    def _mutateSchedule(self, mutateSchedule):
         schedule = Schedule().initialize()
-        for i in range(len(mutateSchedule.get_classes())):
+        for i in range(len(mutateSchedule.getClasses())):
             if MUTATION_RATE > random.random():
-                mutateSchedule.get_classes()[i] = schedule.get_classes()[i]
+                mutateSchedule.getClasses()[i] = schedule.getClasses()[i]
         return mutateSchedule
 
-    def _select_tournament_population(self, pop):
-        tournament_pop = Population(0)
+    def _tournamentPopulation(self, popula):
+        tournamentPopula = Population(0)
 
         for i in range(0, TOURNAMENT_SELECTION_SIZE):
-            tournament_pop.get_schedules().append(
-                pop.get_schedules()[random.randrange(0, POPULATION_SIZE)])
+            tournamentPopula.getSchedules().append(
+                popula.getSchedules()[random.randrange(0, POPULATION_SIZE)])
 
-        # tournament_pop.get_schedules().sort(key=lambda x: x.get_fitness(),reverse=True)
-        # return tournament_pop
-        return max(tournament_pop.get_schedules(), key=lambda x: x.get_fitness())
+        # tournamentPopula.getSchedules().sort(key=lambda x: x.getFitness(),reverse=True)
+        # return tournamentPopula
+        return max(tournamentPopula.getSchedules(), key=lambda x: x.getFitness())
 
-
-data = Data()
 
 
 def context_manager(schedule):
-    classes = schedule.get_classes()
+    classes = schedule.getClasses()
     context = []
     for i in range(len(classes)):
-        cls = {}
-        cls['section'] = classes[i].section_id
-        cls['dept'] = classes[i].department.dept_name
-        cls['course'] = f'{classes[i].course.course_name} ({classes[i].course.course_number} {classes[i].course.max_numb_students})'
-        cls['room'] = f'{classes[i].room.r_number} ({classes[i].room.seating_capacity})'
-        cls['instructor'] = f'{classes[i].instructor.name} ({classes[i].instructor.uid})'
-        cls['meeting_time'] = [
+        clas = {}
+        clas['section'] = classes[i].section_id
+        clas['dept'] = classes[i].department.dept_name
+        clas['course'] = f'{classes[i].course.course_name} ({classes[i].course.course_number} {classes[i].course.max_numb_students})'
+        clas['room'] = f'{classes[i].room.r_number} ({classes[i].room.seating_capacity})'
+        clas['instructor'] = f'{classes[i].instructor.name} ({classes[i].instructor.uid})'
+        clas['meeting_time'] = [
             classes[i].meeting_time.pid,
             classes[i].meeting_time.day,
             classes[i].meeting_time.time
         ]
-        context.append(cls)
+        context.append(clas)
     return context
 
 
 @login_required
 def timetable(request):
-    schedule = []
+    global data
+    data = Data()
     population = Population(POPULATION_SIZE)
-    generation_num = 0
-    population.get_schedules().sort(key=lambda x: x.get_fitness(), reverse=True)
+    generationNum = 0
+    population.getSchedules().sort(key=lambda x: x.getFitness(), reverse=True)
     geneticAlgorithm = GeneticAlgorithm()
+    schedule = population.getSchedules()[0]
 
-    while population.get_schedules()[0].get_fitness() != 1.0:
-        generation_num += 1
-        print('\n> Generation #' + str(generation_num))
+    while (schedule.getFitness() != 1.0) and (generationNum < 100):
         population = geneticAlgorithm.evolve(population)
-        population.get_schedules().sort(key=lambda x: x.get_fitness(), reverse=True)
-        schedule = population.get_schedules()[0].get_classes()
+        population.getSchedules().sort(key=lambda x: x.getFitness(), reverse=True)
+        schedule = population.getSchedules()[0]
+        generationNum += 1
+        # for c in schedule.getClasses():
+        #     print(c.course.course_name, c.meeting_time)
+        print(f'\n> Generation #{generationNum}, Fitness: {schedule.getFitness()}')
 
     return render(
         request, 'timetable.html', {
-            'schedule': schedule,
+            'schedule': schedule.getClasses(),
             'sections': data.get_sections(),
             'times': data.get_meetingTimes(),
             'timeSlots': TIME_SLOTS,
@@ -438,5 +454,12 @@ def sectionDelete(request, pk):
 
 
 
+'''
+Error pages
+'''
+
 def error_404(request, exception):
     return render(request,'errors/404.html', {})
+
+def error_500(request, *args, **argv):
+    return render(request,'errors/500.html', {})

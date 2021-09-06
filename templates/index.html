@@ -3,32 +3,40 @@
 {% load static %}
 
 
+
 <div class="container-fluid">
-<div class="row ml-auto">
-  <div class="col-lg-5 col-md-5 col-xl-5 col-xxl-5 col-sm-12 halfpart ">
-    <div class="inner">
-      <img src="{% static 'img/vect.jpg' %}"  >
-    </div>
-  </div>
-  <div class="col-lg-7 col-md-7 col-xl-7 col-xxl-7 col-sm-12 halfpart ">
-    <div class="card">
-      <div class="txt">
-        <h2>Timetable Generator</h2>
-        <p>Let our Artificial Intelligence schedule your classes.
-        Add your university class details and generate Time Table.</p>
+  <div class="row ml-auto">
+    <div class="col-lg-5 col-md-5 col-xl-5 col-xxl-5 col-sm-12 halfpart">
+      <div class="inner">
+        <img src="{% static 'img/vect.jpg' %}">
       </div>
-        <div class="crdbtn">
+    </div>
+    <div class="col-lg-7 col-md-7 col-xl-7 col-xxl-7 col-sm-12 halfpart">
+      <div class="card">
+        <div class="txt">
+          <h2>Timetable Generator</h2>
+          <p>Let our Artificial Intelligence schedule your classes.
+            Add your university class details and generate Time Table.</p>
+        </div>
+        <div class="crdbtn" onclick='document.getElementById("loaderClass").style.display="inline-block"'>
           <a href="{% url 'timetable' %}" class="btn">Generate Timetable</a>
+          {% if user.is_authenticated %}
+          <div id="loaderClass" class="loaderClass">
+            <svg class="loader" width="40" height="40">
+              <circle cx="20" cy="20" r="15" />
+              <animate attributeName="cx" from="0" to="300" dur="3s" fill="freeze" repeatCount="2" />
+            </svg>
+          </div>
+          {% endif %}
+          {% if not user.is_authenticated %}
+          <div class="crdbtn">
+            <a href="{% url 'login' %}" class="btn">Login</a>
+          </div>
+          {% endif %}
         </div>
-        {% if not user.is_authenticated %}
-        <div class="crdbtn">
-          <a href="{% url 'login' %}" class="btn">Login</a>
-        </div>
-        {% endif %}
       </div>
     </div>
   </div>
-</div>
 </div>
 
 {% endblock %}
