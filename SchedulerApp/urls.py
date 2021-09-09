@@ -1,5 +1,4 @@
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from .views import *
 
 urlpatterns = [
@@ -30,4 +29,5 @@ urlpatterns = [
     path('sectionEdit/', sectionEdit, name='sectionEdit'),
     path('sectionDelete/<str:pk>/', sectionDelete, name='deletesection'),
 
+    path('api/genNum/', apiGenNum, name='apiGenNum')
 ]

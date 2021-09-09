@@ -338,6 +338,16 @@ button {
 
 .loaderClass {
   display: none;
+  position: relative;
+}
+
+.loaderClassValue {
+  position: absolute;
+  font-size: 1.3rem;
+  z-index: 5;
+  line-height: 40px;
+  width: 40px;
+  text-align: center;
 }
 
 .loader {

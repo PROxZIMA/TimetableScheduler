@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
 from collections import defaultdict
-from pprint import pprint
 import random
 
 POPULATION_SIZE = 30
@@ -245,24 +244,29 @@ def context_manager(schedule):
     return context
 
 
+def apiGenNum(request):
+    return JsonResponse({'genNum': timetable.generationNum})
+
+
+
 @login_required
 def timetable(request):
     global data
     data = Data()
     population = Population(POPULATION_SIZE)
-    generationNum = 0
+    timetable.generationNum = 0
     population.getSchedules().sort(key=lambda x: x.getFitness(), reverse=True)
     geneticAlgorithm = GeneticAlgorithm()
     schedule = population.getSchedules()[0]
 
-    while (schedule.getFitness() != 1.0) and (generationNum < 100):
+    while (schedule.getFitness() != 1.0) and (timetable.generationNum < 100):
         population = geneticAlgorithm.evolve(population)
         population.getSchedules().sort(key=lambda x: x.getFitness(), reverse=True)
         schedule = population.getSchedules()[0]
-        generationNum += 1
+        timetable.generationNum += 1
         # for c in schedule.getClasses():
         #     print(c.course.course_name, c.meeting_time)
-        print(f'\n> Generation #{generationNum}, Fitness: {schedule.getFitness()}')
+        print(f'\n> Generation #{timetable.generationNum}, Fitness: {schedule.getFitness()}')
 
     return render(
         request, 'timetable.html', {
