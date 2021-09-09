@@ -377,6 +377,12 @@ button {
   100% {transform: rotate(360deg); }
 }
 
+.terminateGens {
+  position: absolute;
+  left: 70px;
+  top: -1rem;
+}
+
 
 
 fieldset {

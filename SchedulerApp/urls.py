@@ -29,5 +29,6 @@ urlpatterns = [
     path('sectionEdit/', sectionEdit, name='sectionEdit'),
     path('sectionDelete/<str:pk>/', sectionDelete, name='deletesection'),
 
-    path('api/genNum/', apiGenNum, name='apiGenNum')
+    path('api/genNum/', apiGenNum, name='apiGenNum'),
+    path('api/terminateGens/', apiterminateGens, name='apiterminateGens')
 ]

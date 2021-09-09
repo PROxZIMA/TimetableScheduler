@@ -1,3 +1,4 @@
+from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
@@ -10,6 +11,8 @@ POPULATION_SIZE = 30
 NUMB_OF_ELITE_SCHEDULES = 2
 TOURNAMENT_SELECTION_SIZE = 8
 MUTATION_RATE = 0.05
+VARS = {'generationNum': 0,
+        'terminateGens': False}
 
 
 class Population:
@@ -245,7 +248,11 @@ def context_manager(schedule):
 
 
 def apiGenNum(request):
-    return JsonResponse({'genNum': timetable.generationNum})
+    return JsonResponse({'genNum': VARS['generationNum']})
+
+def apiterminateGens(request):
+    VARS['terminateGens'] = True
+    return redirect('home')
 
 
 
@@ -254,19 +261,24 @@ def timetable(request):
     global data
     data = Data()
     population = Population(POPULATION_SIZE)
-    timetable.generationNum = 0
+    VARS['generationNum'] = 0
+    VARS['terminateGens'] = False
     population.getSchedules().sort(key=lambda x: x.getFitness(), reverse=True)
     geneticAlgorithm = GeneticAlgorithm()
     schedule = population.getSchedules()[0]
 
-    while (schedule.getFitness() != 1.0) and (timetable.generationNum < 100):
+    while (schedule.getFitness() != 1.0) and (VARS['generationNum'] < 100):
+        if VARS['terminateGens']:
+            return HttpResponse('')
+
         population = geneticAlgorithm.evolve(population)
         population.getSchedules().sort(key=lambda x: x.getFitness(), reverse=True)
         schedule = population.getSchedules()[0]
-        timetable.generationNum += 1
+        VARS['generationNum'] += 1
+
         # for c in schedule.getClasses():
         #     print(c.course.course_name, c.meeting_time)
-        print(f'\n> Generation #{timetable.generationNum}, Fitness: {schedule.getFitness()}')
+        print(f'\n> Generation #{VARS["generationNum"]}, Fitness: {schedule.getFitness()}')
 
     return render(
         request, 'timetable.html', {
