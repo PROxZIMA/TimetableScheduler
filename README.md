@@ -23,7 +23,7 @@ Project uses genetic algorithm to satisfy the constraints related to Timetable s
 | Class timing for each teacher is unique           |
 | Teachers are allocated to their course accordingly|
 
-### Screenshots
+## Screenshots
 
 [![1](./assets/img/1.png)](#)
 [![2](./assets/img/2.png)](#)
