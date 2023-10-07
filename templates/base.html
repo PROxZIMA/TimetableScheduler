@@ -20,6 +20,7 @@
   <meta name="description" content="Timetable Scheduler">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <link rel="stylesheet" type="text/css" href="{% static 'CSS/style.css' %}">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -28,13 +29,15 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand:400,500,700">
   <link rel="stylesheet" type="text/css" href="{% static 'CSS/style.css' %}">
+  
+  {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'CSS/login.css' %}"> {% endcomment %}
 </head>
 
 <body>
 
   <div class="main">
     <nav class="navbar">
-      <div class="navbar-container">
+      <div class=" navbar-container ">
         <input class="hamburger" type="checkbox" name="" id="">
         <div class="hamburger-lines">
           <span class="line line1"></span>
@@ -45,7 +48,7 @@
           <h2><a href="{{ home }}">Time-Table Scheduler</a></h2>
           <h4>Schedule Timetable with ease</h4>
         </div>
-        <ul class="menu-items">
+        <ul class=" menu-items ">
           <li class="{% active request home %}"><a href="{{ home }}">Home</a></li>
           <li class="{% active request instructorAdd %}"><a href="{{ instructorAdd }}">Instructor</a></li>
           <li class="{% active request roomAdd %}"><a href="{{ roomAdd }}">Room</a></li>
@@ -80,3 +83,5 @@
 </body>
 
 </html>
+
+{% comment %} 09097210638 {% endcomment %}
