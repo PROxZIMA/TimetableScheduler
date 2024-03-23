@@ -6,11 +6,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 
 # SECURITY WARNING: keep the secret key used in production secret!
-with open('./secret_key.txt') as f:
-    SECRET_KEY = f.read().strip()
+
+SECRET_KEY = 'i%i@rtezqh8te3rz5*_7zac85=h5-dekhgl5ipggy)%&g)%9x-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
 
