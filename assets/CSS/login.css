@@ -34,7 +34,7 @@ html, body {
 }
 
 body {
-  background:url('../img/loginbg.jpg') center center / auto 100% no-repeat;
+  background:url('../img/colphys1.jpeg') center center / auto 100% no-repeat;
   font-size: 14px;
   font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 400;
@@ -274,8 +274,8 @@ a:focus {
 
 .btn-info {
   color: #fff;
-  background-color: #5bc0de;
-  border-color: #46b8da
+  background-color: #19a909;
+  border-color: #19a909;
 }
 
 .btn-info:focus {
@@ -285,8 +285,8 @@ a:focus {
 }
 
 .btn-info:hover {
-  color: #fff;
-  background-color: #31b0d5;
+  color: #056503;
+  background-color: #aaf6a7;
   border-color: #269abc
 }
 
@@ -340,8 +340,8 @@ a:focus {
 }
 
 .btn-info {
-  background-color: #00c0ef;
-  border-color: #00acd6
+  background-color: #62a055;
+  border-color: #62a055
 }
 
 .btn-info:hover,
@@ -363,12 +363,15 @@ a:focus {
 }
 
 .logWelC {
-  color: #00c0ef;
+<<<<<<< HEAD
+  color: #62a055;
+=======
+  color: #19a909;
+>>>>>>> origin/PROJECT
   font-size: 22px;
   font-weight: bold;
   text-transform: uppercase;
 }
-
 .sr {
   width: 50%;
   position: absolute;
@@ -396,6 +399,8 @@ a:focus {
 .logoLogin {
   margin-top: 15px;
   margin-bottom: 15px;
+  /* width: 130px;
+  height: 90px; */
 }
 
 @media only screen and (max-width:990px) {

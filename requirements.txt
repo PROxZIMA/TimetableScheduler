@@ -1,1 +1,5 @@
-Django==3.2.25
+Django==3.2.20
+flask
+gunicorn
+pandas
+numpy
