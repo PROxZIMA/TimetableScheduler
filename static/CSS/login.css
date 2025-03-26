@@ -340,13 +340,14 @@ a:focus {
 }
 
 .btn-info {
-  background-color: #00c0ef;
-  border-color: #00acd6
+  background-color: #19a909;
+  border-color: #19a909;
 }
 
 .btn-info:hover,
 .btn-info:active {
-  background-color: #00acd6
+  color: #056503;
+  background-color: #aaf6a7
 }
 
 .login-box-body {
@@ -363,7 +364,7 @@ a:focus {
 }
 
 .logWelC {
-  color: #00c0ef;
+  color: #19a909;
   font-size: 22px;
   font-weight: bold;
   text-transform: uppercase;

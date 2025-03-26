@@ -274,8 +274,8 @@ a:focus {
 
 .btn-info {
   color: #fff;
-  background-color: #5bc0de;
-  border-color: #46b8da
+  background-color: #19a909;
+  border-color: #19a909;
 }
 
 .btn-info:focus {
@@ -285,8 +285,8 @@ a:focus {
 }
 
 .btn-info:hover {
-  color: #fff;
-  background-color: #31b0d5;
+  color: #056503;
+  background-color: #aaf6a7;
   border-color: #269abc
 }
 
@@ -363,7 +363,7 @@ a:focus {
 }
 
 .logWelC {
-  color: #00c0ef;
+  color: #19a909;
   font-size: 22px;
   font-weight: bold;
   text-transform: uppercase;

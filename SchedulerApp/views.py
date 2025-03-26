@@ -279,6 +279,9 @@ def timetable(request):
         # for c in schedule.getClasses():
         #     print(c.course.course_name, c.meeting_time)
         print(f'\n> Generation #{VARS["generationNum"]}, Fitness: {schedule.getFitness()}')
+    room_data = [class_data.get_room() for class_data in schedule.getClasses()]
+    print(room_data)
+    # print(schedule.getClasses())
 
     return render(
         request, 'timetable.html', {
@@ -286,9 +289,12 @@ def timetable(request):
             'sections': data.get_sections(),
             'times': data.get_meetingTimes(),
             'timeSlots': TIME_SLOTS,
-            'weekDays': DAYS_OF_WEEK
+            'weekDays': DAYS_OF_WEEK,
+            'roomSpace': room_data,
+             
+            
         })
-
+        
 
 '''
 Page Views
